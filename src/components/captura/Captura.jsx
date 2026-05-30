@@ -1,6 +1,7 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, use } from 'react'
 import style from '../captura/Captura.module.scss'
+
 
 const GetApiPokemon = () => {
 
@@ -9,20 +10,49 @@ const GetApiPokemon = () => {
   const [dataApi, setDataApi] = useState(null);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    if (!idBusca) return;
+
+    async function getApi() {
+      try {
+        setError(null);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${idBusca}`);
+                    
+        if (!response.ok) {
+          throw new Error("Pokémon não encontrado.");
+        }
+                    
+        const data = await response.json();
+        console.log(data)
+        setDataApi(data);
+
+      } catch (err) {
+          setError(err.message);
+          setDataApi(null);
+      } finally {
+        console.log("A requisição terminou.");
+      }
+    }
+
+    getApi();
+  },[idBusca]);
+
+
   return (
     <section className={style.containerGetPokemonApi}>
 
       <div className={style.preencher}>
         <p>Número Pokemon:</p>
-        <input type="number" placeholder="EX: 1"/>
+        <input type="number" placeholder="EX: 1" value={idDigitado} onChange={ (e)=> setIdDigitado(e.target.value)}/>
       </div>
 
       <div className={style.buttons}>
-        <button className={style.buttonAuto}>Auto preencher</button>
+        <button className={style.buttonAuto} onClick={()=> setIdBusca(idDigitado)}>Auto preencher</button>
         <button className={style.buttonRegistrar}>Registrar Pokémon</button>
       </div>
 
     </section>
+    
   )
 }
 
@@ -37,10 +67,19 @@ const ExibirPokemon = () => {
           <h3>NOME</h3>
           <p className={style.nome}>Bulbassaur</p>
           <h3>TIPO</h3>
-          <span className={style.containerTipos}>
-            <p className={style.tipoPrincipal}>Grass</p>
-            <p className={style.tipoSecundario}>Poison</p>
-          </span>
+
+          <div className={style.containerTipos}>
+
+            <span className={style.tipoPrincipal}>
+              Grass
+            </span>
+
+            <span className={style.tipoSecundario}>
+              Poison
+            </span>
+
+          </div>
+
       </div>
 
       <div className={style.containerImg}>
@@ -59,7 +98,6 @@ function Captura() {
     <section className={style.containerCaptura}>
       <GetApiPokemon />
       <ExibirPokemon />
-      
     </section>
   )
 }

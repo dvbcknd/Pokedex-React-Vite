@@ -1,22 +1,22 @@
 
 /*Padrão de importação "m", é o apelido. Para usar, faz assim: @include m.flex;*/
  @use '../sass/_mixins.scss' as m;
+ @use '../sass/variaveis' as v;
 
 
 .containerCaptura{ /*Engloba containerExibirPokemon e containerGetPokemonApi*/
-    border: solid greenyellow 4px;
-    background-color: #fff;
-    width: 100%;
     @include m.flex;
-    @include m.radius; // border-radius 10px
+    background: v.$gradient-captura;
+    border: solid 1px v.$color-border;
+    border-radius: v.$border-radius-md;
+    width: 100%;    
     padding: 0 10px;
     gap: 1em;
     box-sizing: border-box;
 
     /*Estilização do getApi*/
     .containerGetPokemonApi{
-        background-color: rgb(96, 176, 190);
-        @include m.radius;
+        border-radius: v.$border-radius-md;
         width: 100%;
         padding: 10px;
         @include m.flex;
@@ -28,16 +28,17 @@
             width: 100%;
 
             p{
+                color: v.$color-text-secondary;
                 width: 100px;
                 font-weight: bolder;
-                color: #fff;
                 margin: 10px;
                 text-align: center;
             }
 
             input{
+                background: v.$color-input-bg;
+                border: solid 1px v.$color-border;
                 text-align: start;
-                background-color: #ffff;
                 width: 100%;
                 border-radius: 6px;
                 padding: 10px;
@@ -52,31 +53,33 @@
             
 
             .buttonAuto{
+                border: solid 1px v.$color-border;
+                border-radius: v.$border-radius-lg;
+                background:v.$gradient-btn-auto; 
                 width: 100%;
-                @include m.radius;
                 cursor: pointer;
-                color: #ffff;
-                background-color: #3437dd; 
+                color: v.$color-text-primary;
                 font-weight: bold;
                 margin: 0 10px;
                 padding:10px 0;
 
                 &:hover{
-                    background-color: #0004ff;
+                    background: v.$gradient-btn-auto-hover;
                 }
             }
 
             .buttonRegistrar{
+                border-radius: v.$border-radius-lg;
+                background: v.$gradient-btn-register;
+                border: solid 1px v.$color-border;
                 cursor: pointer;
-                @include m.radius;
                 width: 100%;
                 font-weight: bold;
-                background-color: #c41518;
-                color: #ffff;
+                color: v.$color-text-primary;
                 padding:10px 0;
 
                 &:hover{
-                    background-color: #ff0004;
+                    background: v.$gradient-btn-register-hover;
                 }
             }
 
@@ -87,8 +90,8 @@
 
     /*Estilização de exbição do pokémon*/
     .containerExibirPokemon{ /*Engloba containerInfos e containerImg*/
-        @include m.radius;
         @include m.flex;
+        border-radius: v.$border-radius-md;
         width: 100%;
         padding: 10px;
         justify-content: space-between;
@@ -96,41 +99,45 @@
         
 
         .divInfos{
-            @include m.radius;
+            
             width: 100%;
             height: 150px;
-            background-color: #a8a7a7;
             box-sizing: border-box;
             padding: 10px;
             
             h3{
-                color: #000000;
+                color: v.$color-text-secondary;
                 font-weight: bolder;                
             }
 
             .nome{
-                background-color: #ffffff;
+                border: solid 1px v.$color-border;
+                background: v.$color-input-bg;
                 padding: 2px;
                 border-radius: 7px;
             }
 
             .containerTipos{
                 @include m.flex;
-                justify-content: space-evenly;
+                justify-content: start;
+                gap: 0.5em;
 
                 .tipoPrincipal, .tipoSecundario{
-                    @include m.radius;
-                    width: 100%;
+                    border-radius: v.$border-radius-pill;
+                    border: solid 1px v.$color-border;
+                    text-align: center;
+                    width: 70px;
                     padding: 5px;
-                    margin: 5px;
+                    
                 }
 
                 .tipoPrincipal{
-                    background-color: #678b36;
+                    
+                
                 }
 
                 .tipoSecundario{
-                    background-color: #7663c7;
+                    
                 }
 
             }
@@ -140,16 +147,17 @@
 
         .containerImg{
             @include m.mp10;
-            @include m.radius;  
             @include m.flex;
             width: 100%;
-            justify-content: space-evenly;
+            justify-content: center;
             box-sizing: border-box;
             height: 175px;
             
             
             img{
                 box-sizing: border-box;
+                width: 150px;
+                height: 150px;
             }
         }
        

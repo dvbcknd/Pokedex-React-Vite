@@ -2,37 +2,50 @@
 
 /*Padrão de importação: "m" é o apelido do arquivo. Para usar, faz assim: @include m.flex;*/
  @use '../sass/_mixins.scss' as m;
+ @use '../sass/variaveis' as v;
 
 .navSidebar{ /* Engloba Titulo e Container*/
-    grid-area: nav;
     @include m.flex;
-    @include m.radius; // border-radius 10px
-    flex-wrap: wrap;
+    border-radius: v.$border-radius-lg;
+    background: v.$gradient-cabecalho;
+    border: solid 1px v.$color-border;
     width: 100%;
-    border: solid 5px blue;
-    gap: 3em;
+    box-sizing: border-box;
+    justify-content: space-between;
     padding: 10px;
-    background-color: #ffff;
-    
     
 
     .tituloPagina{
         font-size: 3em;
+        color: v.$color-text-primary;
     }
 
     .containerSecundarioNav{ /* Está dentro de Container e engloba toogle e spanContainer*/
         display: flex;
         flex-direction: column;
         align-items: end;
-        
-        gap: 1em;
-    }
 
-    .spanContainer{ /* Está dentro de containerSecundarioNav e engloba h3 e p, com quantidade de Pokémons registrados*/
-        @include m.mp10; //margin e paddim 10px
-        @include m.radius; // border-radius 10px
-        width: 200px;
-        background-color: #EDE9E7;
+
+
+        .spanContainer{ /* engloba h3 e p, com quantidade de Pokémons registrados*/
+            @include m.mp10; //margin e paddim 10px
+            border-radius: v.$border-radius-md;
+            background: v.$gradient-captura;
+            border: solid 1px v.$color-border;
+            width: 200px;
+            
+
+            p{
+                color: v.$color-text-secondary;
+            }
+        }
     }
 }
+
+
+        
+    
+
+    
+
 

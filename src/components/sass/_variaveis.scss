@@ -1,0 +1,86 @@
+
+// ================================
+// CORES BASE
+// ================================
+
+// Texto
+$color-text-primary:    #3C2F6E;
+$color-text-secondary:  #9B8EC0;
+
+// Bordas
+$color-border:          #C9B8F5;
+
+// Campos / inputs
+$color-input-bg:        #F3EFFE;
+
+
+
+// ================================
+// GRADIENTES
+// ================================
+
+$gradient-pagina: linear-gradient(
+  145deg,
+  #EEF2FF 0%,
+  #FAF0FB 50%,
+  #F0FBF4 100%
+);
+
+$gradient-cabecalho: linear-gradient(
+  120deg,
+  #C8EFF8 0%,
+  #FAD6F5 60%,
+  #D6CBFA 100% 
+);
+
+$gradient-captura: linear-gradient(
+  135deg,
+  #D8F0FC 0%,
+  #FAF0FB 50%,
+  #E8D8FC 100%
+);
+
+$gradient-btn-auto: linear-gradient(
+  90deg,
+  #C8B8F8 0%,
+  #F3B8F5 100%
+);
+
+$gradient-btn-register: linear-gradient(
+  90deg,
+  #7EC8E3 0%,
+  #9BE3C8 100%
+);
+
+// Hover dos botões
+$gradient-btn-auto-hover: linear-gradient(
+  90deg,
+  #B8A4F5 0%,
+  #E8A4F0 100%
+);
+
+$gradient-btn-register-hover: linear-gradient(
+  90deg,
+  #6AB8D6 0%,
+  #86D6B5 100%
+);
+
+
+// Cards da coleção (um por tipo temático)
+$gradient-card-grass:   linear-gradient(135deg, #E8FAEE 0%, #D8F0FC 100%);
+$gradient-card-fire:    linear-gradient(135deg, #FCE8D8 0%, #FAD6F5 100%);
+$gradient-card-water:   linear-gradient(135deg, #D8E8FC 0%, #E8D8FC 100%);
+
+
+
+// ================================
+// BORDAS E RAIOS
+// ================================
+
+$border-radius-sm:  6px;
+$border-radius-md:  10px;
+$border-radius-lg:  16px;
+$border-radius-pill: 999px;
+
+$border-default: 0.5px solid $color-border;
+

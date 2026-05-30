@@ -11,12 +11,3 @@
     width: 1100px;
     overflow: auto;
 }
-
-
-
-   /* grid-template-columns: 1fr;
-    grid-template-areas: 
-        "nav nav"
-        "getApi getApi"
-        "colecao colecao";
-    grid-template-rows: 1fr 2fr  6fr; */
