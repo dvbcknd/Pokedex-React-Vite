@@ -1,0 +1,159 @@
+
+/*Padrão de importação "m", é o apelido. Para usar, faz assim: @include m.flex;*/
+ @use '../sass/_mixins.scss' as m;
+
+
+.containerCaptura{ /*Engloba containerExibirPokemon e containerGetPokemonApi*/
+    border: solid greenyellow 4px;
+    background-color: #fff;
+    width: 100%;
+    @include m.flex;
+    @include m.radius; // border-radius 10px
+    padding: 0 10px;
+    gap: 1em;
+    box-sizing: border-box;
+
+    /*Estilização do getApi*/
+    .containerGetPokemonApi{
+        background-color: rgb(96, 176, 190);
+        @include m.radius;
+        width: 100%;
+        padding: 10px;
+        @include m.flex;
+        flex-direction: column;
+        gap: 1em;
+
+        .preencher{
+            @include m.flex;
+            width: 100%;
+
+            p{
+                width: 100px;
+                font-weight: bolder;
+                color: #fff;
+                margin: 10px;
+                text-align: center;
+            }
+
+            input{
+                text-align: start;
+                background-color: #ffff;
+                width: 100%;
+                border-radius: 6px;
+                padding: 10px;
+            }
+        }
+        
+        .buttons{
+            @include m.flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 0.5em;
+            
+
+            .buttonAuto{
+                width: 100%;
+                @include m.radius;
+                cursor: pointer;
+                color: #ffff;
+                background-color: #3437dd; 
+                font-weight: bold;
+                margin: 0 10px;
+                padding:10px 0;
+
+                &:hover{
+                    background-color: #0004ff;
+                }
+            }
+
+            .buttonRegistrar{
+                cursor: pointer;
+                @include m.radius;
+                width: 100%;
+                font-weight: bold;
+                background-color: #c41518;
+                color: #ffff;
+                padding:10px 0;
+
+                &:hover{
+                    background-color: #ff0004;
+                }
+            }
+
+        }
+                    
+    }
+
+
+    /*Estilização de exbição do pokémon*/
+    .containerExibirPokemon{ /*Engloba containerInfos e containerImg*/
+        @include m.radius;
+        @include m.flex;
+        width: 100%;
+        padding: 10px;
+        justify-content: space-between;
+        box-sizing: border-box;
+        
+
+        .divInfos{
+            @include m.radius;
+            width: 100%;
+            height: 150px;
+            background-color: #a8a7a7;
+            box-sizing: border-box;
+            padding: 10px;
+            
+            h3{
+                color: #000000;
+                font-weight: bolder;                
+            }
+
+            .nome{
+                background-color: #ffffff;
+                padding: 2px;
+                border-radius: 7px;
+            }
+
+            .containerTipos{
+                @include m.flex;
+                justify-content: space-evenly;
+
+                .tipoPrincipal, .tipoSecundario{
+                    @include m.radius;
+                    width: 100%;
+                    padding: 5px;
+                    margin: 5px;
+                }
+
+                .tipoPrincipal{
+                    background-color: #678b36;
+                }
+
+                .tipoSecundario{
+                    background-color: #7663c7;
+                }
+
+            }
+
+
+        }
+
+        .containerImg{
+            @include m.mp10;
+            @include m.radius;  
+            @include m.flex;
+            width: 100%;
+            justify-content: space-evenly;
+            box-sizing: border-box;
+            height: 175px;
+            
+            
+            img{
+                box-sizing: border-box;
+            }
+        }
+       
+    }
+}
+
+

@@ -1,0 +1,19 @@
+
+@use '../sass/mixins' as m;
+
+
+.containerColecao{
+    grid-area: colecao;
+    border: solid rgb(231, 47, 255) 4px;
+
+    h2{
+        font-size: 2em
+    }
+
+    .divBusca{
+        @include m.flex;
+        justify-content: space-between;
+    }
+
+    
+}
