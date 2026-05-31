@@ -4,6 +4,16 @@
  @use '../sass/variaveis' as v;
 
 
+ .mensagem{
+    font-size: 2em;
+    color: v.$color-text-primary;
+ }
+
+ .mensagemErro{
+    font-size: 2em;
+    color: v.$color-text-error;
+ }
+
 .containerCaptura{ /*Engloba containerExibirPokemon e containerGetPokemonApi*/
     @include m.flex;
     background: v.$gradient-captura;
@@ -13,6 +23,8 @@
     padding: 0 10px;
     gap: 1em;
     box-sizing: border-box;
+   
+    
 
     /*Estilização do getApi*/
     .containerGetPokemonApi{
@@ -113,6 +125,8 @@
             .nome{
                 border: solid 1px v.$color-border;
                 background: v.$color-input-bg;
+                color: v.$color-text-primary;
+                text-align: center;
                 padding: 2px;
                 border-radius: 7px;
             }
@@ -125,6 +139,8 @@
                 .tipoPrincipal, .tipoSecundario{
                     border-radius: v.$border-radius-pill;
                     border: solid 1px v.$color-border;
+                    background: v.$tipos-bg;
+                    color: v.$color-text-primary;
                     text-align: center;
                     width: 70px;
                     padding: 5px;
@@ -139,10 +155,7 @@
                 .tipoSecundario{
                     
                 }
-
             }
-
-
         }
 
         .containerImg{
