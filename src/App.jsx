@@ -1,20 +1,17 @@
 
 import './App.css'
 import Sidebar from './components/cabecalho/Cabecalho'
-import Captura from './components/captura/Captura'
-import Colecao from './components/colecao/Colecao'
+import GetApiPokemon from './components/captura/GetApiPokemon'
+
 
 
 
 
 function App() {
-  
-
   return (
     <main className='main'>
       <Sidebar />
-      <Captura />
-      <Colecao />
+      <GetApiPokemon />
     </main>
   )
 }

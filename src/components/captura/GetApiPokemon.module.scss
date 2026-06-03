@@ -1,0 +1,187 @@
+
+/*Padrão de importação "m", é o apelido. Para usar, faz assim: @include m.flex;*/
+ @use '../sass/_mixins.scss' as m;
+ @use '../sass/variaveis' as v;
+
+
+.mensagem{
+    font-size: 2em;
+    color: v.$color-text-primary;
+}
+
+.mensagemErro{
+    font-size: 2em;
+    color: v.$color-text-error;
+}
+
+.conteinerPrincipal{
+    @include m.flex;
+    flex-direction: column;
+    gap: .5em;
+    width: 100%;
+    box-sizing: border-box;
+
+
+    .containerCaptura{ /*Engloba containerExibirPokemon e containerGetPokemonApi*/
+        @include m.flex;
+        background: v.$gradient-captura;
+        border: solid 1px v.$color-border;
+        border-radius: v.$border-radius-md;
+        width: 100%;    
+        padding: 0 10px;
+        gap: 1em;
+        box-sizing: border-box;
+    
+        
+
+        /*Estilização do getApi*/
+        .containerGetPokemonApi{
+            border-radius: v.$border-radius-md;
+            width: 100%;
+            padding: 10px;
+            @include m.flex;
+            flex-direction: column;
+            gap: 1em;
+
+            .preencher{
+                @include m.flex;
+                width: 100%;
+
+                p{
+                    color: v.$color-text-secondary;
+                    width: 100px;
+                    font-weight: bolder;
+                    margin: 10px;
+                    text-align: center;
+                }
+
+                input{
+                    background: v.$color-input-bg;
+                    border: solid 1px v.$color-border;
+                    text-align: start;
+                    width: 100%;
+                    border-radius: 6px;
+                    padding: 10px;
+                }
+            }
+            
+            .buttons{
+                @include m.flex;
+                flex-direction: column;
+                width: 100%;
+                gap: 0.5em;
+                
+
+                .buttonAuto{
+                    border: solid 1px v.$color-border;
+                    border-radius: v.$border-radius-lg;
+                    background:v.$gradient-btn-auto; 
+                    width: 100%;
+                    cursor: pointer;
+                    color: v.$color-text-primary;
+                    font-weight: bold;
+                    margin: 0 10px;
+                    padding:10px 0;
+
+                    &:hover{
+                        background: v.$gradient-btn-auto-hover;
+                    }
+                }
+
+                .buttonRegistrar{
+                    border-radius: v.$border-radius-lg;
+                    background: v.$gradient-btn-register;
+                    border: solid 1px v.$color-border;
+                    cursor: pointer;
+                    width: 100%;
+                    font-weight: bold;
+                    color: v.$color-text-primary;
+                    padding:10px 0;
+
+                    &:hover{
+                        background: v.$gradient-btn-register-hover;
+                    }
+                }
+
+            }
+                        
+        }
+
+
+        /*Estilização de exbição do pokémon*/
+        .containerExibirPokemon{ /*Engloba containerInfos e containerImg*/
+            @include m.flex;
+            border-radius: v.$border-radius-md;
+            width: 100%;
+            padding: 10px;
+            justify-content: space-between;
+            box-sizing: border-box;
+            
+
+            .divInfos{
+                
+                width: 100%;
+                height: 150px;
+                box-sizing: border-box;
+                padding: 10px;
+                
+                h3{
+                    color: v.$color-text-secondary;
+                    font-weight: bolder;                
+                }
+
+                .nome{
+                    border: solid 1px v.$color-border;
+                    background: v.$color-input-bg;
+                    color: v.$color-text-primary;
+                    text-align: center;
+                    padding: 2px;
+                    border-radius: 7px;
+                }
+
+                .containerTipos{
+                    @include m.flex;
+                    justify-content: start;
+                    gap: 0.5em;
+
+                    .tipoPrincipal, .tipoSecundario{
+                        border-radius: v.$border-radius-pill;
+                        border: solid 1px v.$color-border;
+                        background: v.$tipos-bg;
+                        color: v.$color-text-primary;
+                        text-align: center;
+                        width: 70px;
+                        padding: 5px;
+                        
+                    }
+
+                    .tipoPrincipal{
+                        
+                    
+                    }
+
+                    .tipoSecundario{
+                        
+                    }
+                }
+            }
+
+            .containerImg{
+                @include m.mp10;
+                @include m.flex;
+                width: 100%;
+                justify-content: center;
+                box-sizing: border-box;
+                height: 175px;
+                
+                
+                img{
+                    box-sizing: border-box;
+                    width: 150px;
+                    height: 150px;
+                }
+            }
+        
+        }
+    }
+}

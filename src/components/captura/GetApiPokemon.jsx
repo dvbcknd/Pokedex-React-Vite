@@ -1,13 +1,41 @@
 
 import React, { useState, useEffect, use } from 'react'
-import style from '../captura/Captura.module.scss'
+import style from './GetApiPokemon.module.scss'
+import Colecao from '../colecao/Colecao';
 
 
-function Captura() {
+function GetApiPokemon() {
 
   const [idBusca, setIdBusca] = useState(null); // O ID que dispara a busca
   const [dataApi, setDataApi] = useState(null);
   const [error, setError] = useState(null);
+  const [colecao, setColecao] = useState(() => {
+    const salvo = localStorage.getItem('colecao')
+      return salvo ? JSON.parse(salvo) : []
+  });
+
+  useEffect(() => {
+    localStorage.setItem('colecao', JSON.stringify(colecao))
+  }, [colecao])
+
+  const addPokemon = () =>{
+    if (!dataApi) return;
+
+    const pokemon = {
+      id: dataApi.id,
+      nome: dataApi.name.toUpperCase(),
+      tipoPrincipal: dataApi.types[0].type.name,
+      tipoSecundario: dataApi.types[1]?.type.name || null,
+      img: dataApi.sprites.other['official-artwork'].front_default,
+    } 
+
+    if (colecao.some( (pokemon) => pokemon.id === dataApi.id )){
+      return
+    }else {
+      setColecao([...colecao, pokemon])
+    }
+  }
+
 
   useEffect(() => {
     if (!idBusca) return
@@ -33,18 +61,21 @@ function Captura() {
     getApi()
   }, [idBusca])
 
-    return (
+  return (
+    <div className={style.conteinerPrincipal}>
       <section className={style.containerCaptura}>
-        <GetApiPokemon setIdBusca={setIdBusca} />
+        <Captura setIdBusca={setIdBusca} addPokemon={addPokemon} />
         <ExibirPokemon dataApi={dataApi} error={error} />
       </section>
+      <Colecao colecao={colecao} />
+    </div>
     )
 }
 
 
 
-const GetApiPokemon = ( {setIdBusca} ) => {
-  const [idDigitado, setIdDigitado] = useState(); // O que o suário digita
+const Captura = ( {setIdBusca, addPokemon} ) => {
+  const [idDigitado, setIdDigitado] = useState(''); // O que o suário digita
    
   return (
     <section className={style.containerGetPokemonApi}>
@@ -54,7 +85,7 @@ const GetApiPokemon = ( {setIdBusca} ) => {
       </div>
       <div className={style.buttons}>
         <button className={style.buttonAuto} onClick={()=> setIdBusca(idDigitado)}>Auto preencher</button>
-        <button className={style.buttonRegistrar}>Registrar Pokémon</button>
+        <button className={style.buttonRegistrar} onClick={addPokemon}>Registrar Pokémon</button>
       </div>
     </section>
   )
@@ -62,7 +93,6 @@ const GetApiPokemon = ( {setIdBusca} ) => {
 
 
 const ExibirPokemon = ( {dataApi, error} ) => {
-
   if (error) return <p className={style.mensagemErro}> Pokémon não encontrado... </p>
   if (!dataApi) return <p className={style.mensagem}> Nenhum Pokémon pesquisado... </p>
 
@@ -97,4 +127,4 @@ const ExibirPokemon = ( {dataApi, error} ) => {
 
 
 
-export default Captura
+export default GetApiPokemon

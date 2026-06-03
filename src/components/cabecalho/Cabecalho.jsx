@@ -1,6 +1,6 @@
 import React from 'react'
 
-import style from '../cabecalho/Cabecalho.module.scss'
+import style from './Cabecalho.module.scss'
 
 const Titulo = () => {
   return <h1 className={style.tituloPagina}> Minha Pokedéx </h1>    
