@@ -12,6 +12,7 @@
     box-sizing: border-box;
     justify-content: space-between;
     padding: 5px;
+
     
 
     .tituloPagina{
@@ -31,18 +32,24 @@
             border: solid 1px v.$color-border;
             width: 200px;
             
-
-            p{
+          
+            h3 ,p{
                 color: v.$color-text-secondary;
+                font-weight: bolder;
             }
         }
     }
+
+     // Media Queries -------------
+    @media (max-width: 460px){
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        
+    }
+
+
 }
 
-
-        
-    
-
-    
 
 

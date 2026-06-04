@@ -43,6 +43,16 @@
             flex-direction: column;
             gap: 1em;
 
+            .avisoExiste{
+                color: v.$color-text-error;
+                font-weight: bolder;
+            }
+
+            .avisoadd{
+                color: v.$color-text-confirm;
+                font-weight: bolder;
+            }
+
             .preencher{
                 @include m.flex;
                 width: 100%;
@@ -154,15 +164,6 @@
                         padding: 5px;
                         
                     }
-
-                    .tipoPrincipal{
-                        
-                    
-                    }
-
-                    .tipoSecundario{
-                        
-                    }
                 }
             }
 
@@ -178,10 +179,19 @@
                 img{
                     box-sizing: border-box;
                     width: 150px;
-                    height: 150px;
+                    height: auto;
                 }
             }
         
         }
+
+         // Media Queries -------------
+        @media (max-width: 800px){
+            flex-direction: column;
+            align-items: center;
+            
+        }
     }
+
+    
 }

@@ -2,21 +2,27 @@
 import React, { useState, useEffect, use } from 'react'
 import style from './GetApiPokemon.module.scss'
 import Colecao from '../colecao/Colecao';
+import tipoCores from '../../utils/tipoCores'
 
 
-function GetApiPokemon() {
+function GetApiPokemon( {colecao, setColecao} ) {
 
   const [idBusca, setIdBusca] = useState(null); // O ID que dispara a busca
   const [dataApi, setDataApi] = useState(null);
   const [error, setError] = useState(null);
-  const [colecao, setColecao] = useState(() => {
-    const salvo = localStorage.getItem('colecao')
-      return salvo ? JSON.parse(salvo) : []
-  });
+  const [jaExiste, setJaExiste] = useState(false);
+  const [add, setAdd] = useState(false);
+
 
   useEffect(() => {
     localStorage.setItem('colecao', JSON.stringify(colecao))
   }, [colecao])
+
+
+  const deletePokemon = (id) =>{
+    setColecao(colecao.filter( p => p.id !== id ));
+  }
+
 
   const addPokemon = () =>{
     if (!dataApi) return;
@@ -30,11 +36,17 @@ function GetApiPokemon() {
     } 
 
     if (colecao.some( (pokemon) => pokemon.id === dataApi.id )){
+      setJaExiste(true);
+      setTimeout( () => setJaExiste(false), 2000)
       return
     }else {
       setColecao([...colecao, pokemon])
+      setAdd(true);
+      setTimeout( () => setAdd(false), 2000)
     }
   }
+
+
 
 
   useEffect(() => {
@@ -64,17 +76,17 @@ function GetApiPokemon() {
   return (
     <div className={style.conteinerPrincipal}>
       <section className={style.containerCaptura}>
-        <Captura setIdBusca={setIdBusca} addPokemon={addPokemon} />
+        <Captura setIdBusca={setIdBusca} addPokemon={addPokemon} existe={jaExiste} add={add}/>
         <ExibirPokemon dataApi={dataApi} error={error} />
       </section>
-      <Colecao colecao={colecao} />
+      <Colecao colecao={colecao} delPokemon={deletePokemon} />
     </div>
     )
 }
 
 
 
-const Captura = ( {setIdBusca, addPokemon} ) => {
+const Captura = ( {setIdBusca, addPokemon, existe, add} ) => {
   const [idDigitado, setIdDigitado] = useState(''); // O que o suário digita
    
   return (
@@ -87,6 +99,13 @@ const Captura = ( {setIdBusca, addPokemon} ) => {
         <button className={style.buttonAuto} onClick={()=> setIdBusca(idDigitado)}>Auto preencher</button>
         <button className={style.buttonRegistrar} onClick={addPokemon}>Registrar Pokémon</button>
       </div>
+      {existe && (
+          <p className={style.avisoExiste}>O Pokémon já existe na coleção!</p>
+        )}
+
+      {add && (
+        <p className={style.avisoadd}>Pokémon adicionado com sucesso!</p>
+      )}
     </section>
   )
 }
@@ -109,9 +128,9 @@ const ExibirPokemon = ( {dataApi, error} ) => {
         <p className={style.nome}>{nome}</p>
         <h3>TIPO</h3>
         <div className={style.containerTipos}>
-          <span className={style.tipoPrincipal}> {tipoPrincipal} </span>
+          <span className={style.tipoPrincipal} style={tipoCores[tipoPrincipal]}>{tipoPrincipal}</span>
             {tipoSecundario
-              ? <span className={style.tipoSecundario}> {tipoSecundario} </span>
+              ? <span className={style.tipoSecundario} style={tipoCores[tipoSecundario]}>{tipoSecundario}</span>
               : <span className={style.tipoSecundario} style={{visibility: 'hidden'}}>-</span>
             }
         </div>

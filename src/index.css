@@ -1,3 +1,28 @@
 
 @import "tailwindcss";
 
+/* -----------------
+PERSONALIZAÇÃO DA BARRA DE NAVEGAÇÃO
+* -----------------/ 
+
+/* largura da barra */
+::-webkit-scrollbar {
+  width: 8px; 
+}
+
+/* fundo da trilha */
+::-webkit-scrollbar-track {
+  background: #EEF2FF;
+}
+
+/* a barra em si */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #C8B8F8, #9BE3C8);
+  border-radius: 999px;
+}
+
+/* hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #B8A4F5, #86D6B5);
+}
+
