@@ -4,6 +4,8 @@ Uma aplicação web interativa desenvolvida em **React** com **Vite**, projetada
 
 Este projeto foi desenvolvido com o objetivo prático de consolidar conceitos de manipulação de estados, ciclo de vida de componentes, renderização condicional, modularização de estilos com Sass e persistência no ecossistema Frontend.
 
+## Deploy da aplicação: https://pokedex-react-vite.vercel.app/
+
 ---
 ![Interface do Projeto Minha Pokédex](./src/img/imagem_projeto.png)
 ---
