@@ -12,7 +12,8 @@ Este projeto foi desenvolvido com o objetivo prático de consolidar conceitos de
 
 - **Busca por ID:** Permite consultar Pokémons individuais inserindo o número correspondente, o programa inicia informando que não tem pokemon pesquisado, caso o usuário digite um número não correspondente é retornado a mensagem de que o Pokémon não foi encontrado.
 - **Auto Preencher / Exibição em Tempo Real:** Renderiza dinamicamente o nome, imagem oficial e os tipos do Pokémon pesquisado.
-- **Gerenciamento de Coleção:** - Adiciona Pokémons à coleção com validação de duplicatas (evita registrar o mesmo Pokémon duas vezes).
+- **Gerenciamento de Coleção:** 
+  - Adiciona Pokémons à coleção com validação de duplicatas (evita registrar o mesmo Pokémon duas vezes).
   - Feedback visual temporário de 2 segundos indicando o sucesso ou falha na inserção.
   - Remoção de Pokémons da coleção através do ícone de lixeira em cada card.
   - Busca do Pokémon na coleção por número, nome e tipo.
