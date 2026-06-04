@@ -14,7 +14,7 @@ Este projeto foi desenvolvido com o objetivo prático de consolidar conceitos de
 - **Auto Preencher / Exibição em Tempo Real:** Renderiza dinamicamente o nome, imagem oficial e os tipos do Pokémon pesquisado.
 - **Gerenciamento de Coleção:** 
   - Adiciona Pokémons à coleção com validação de duplicatas (evita registrar o mesmo Pokémon duas vezes).
-  - Feedback visual temporário de 2 segundos indicando o sucesso ou falha na inserção.
+  - Feedback visual temporário de 2 segundos indicando o sucesso na adição da coleção ou se o Pokémon já existe na coleção.
   - Remoção de Pokémons da coleção através do ícone de lixeira em cada card.
   - Busca do Pokémon na coleção por número, nome e tipo.
 - **Estilização Dinâmica:** As cores de fundo dos cards e das tags de tipo se adaptam automaticamente baseadas no tipo principal (primeiro tipo) do Pokémon.
