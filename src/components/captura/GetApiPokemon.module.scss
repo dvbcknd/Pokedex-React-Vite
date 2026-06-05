@@ -4,13 +4,17 @@
  @use '../sass/variaveis' as v;
 
 
-.mensagem{
+.mensagem, .mensagemErro{
     font-size: 2em;
+    text-align: center;
+
+}
+
+.mensagem{
     color: v.$color-text-primary;
 }
 
 .mensagemErro{
-    font-size: 2em;
     color: v.$color-text-error;
 }
 
@@ -31,13 +35,13 @@
         padding: 0 10px;
         gap: 1em;
         box-sizing: border-box;
-    
-        
+            
 
         /*Estilização do getApi*/
         .containerGetPokemonApi{
             border-radius: v.$border-radius-md;
             width: 100%;
+            height: 100%;
             padding: 10px;
             @include m.flex;
             flex-direction: column;
@@ -129,9 +133,8 @@
             
 
             .divInfos{
-                
                 width: 100%;
-                height: 150px;
+                height: 100%;
                 box-sizing: border-box;
                 padding: 10px;
                 
@@ -140,7 +143,7 @@
                     font-weight: bolder;                
                 }
 
-                .nome{
+                .id, .nome{
                     border: solid 1px v.$color-border;
                     background: v.$color-input-bg;
                     color: v.$color-text-primary;
@@ -153,6 +156,7 @@
                     @include m.flex;
                     justify-content: start;
                     gap: 0.5em;
+                    
 
                     .tipoPrincipal, .tipoSecundario{
                         border-radius: v.$border-radius-pill;
@@ -160,9 +164,8 @@
                         background: v.$tipos-bg;
                         color: v.$color-text-primary;
                         text-align: center;
-                        width: 70px;
-                        padding: 5px;
-                        
+                        width: 80px;
+                        padding: 5px;                      
                     }
                 }
             }

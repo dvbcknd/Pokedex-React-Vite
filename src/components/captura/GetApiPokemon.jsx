@@ -47,8 +47,6 @@ function GetApiPokemon( {colecao, setColecao} ) {
   }
 
 
-
-
   useEffect(() => {
     if (!idBusca) return
     async function getApi() {
@@ -88,6 +86,10 @@ function GetApiPokemon( {colecao, setColecao} ) {
 
 const Captura = ( {setIdBusca, addPokemon, existe, add} ) => {
   const [idDigitado, setIdDigitado] = useState(''); // O que o suário digita
+
+  const limparInput = () => {
+    setTimeout( () =>  setIdDigitado(''), 3000 );
+  }
    
   return (
     <section className={style.containerGetPokemonApi}>
@@ -96,7 +98,7 @@ const Captura = ( {setIdBusca, addPokemon, existe, add} ) => {
         <input type="number" placeholder="EX: 1" value={idDigitado} onChange={ (e)=> setIdDigitado(e.target.value)}/>
       </div>
       <div className={style.buttons}>
-        <button className={style.buttonAuto} onClick={()=> setIdBusca(idDigitado)}>Auto preencher</button>
+        <button className={style.buttonAuto} onClick={()=> { setIdBusca(idDigitado); limparInput() }}>Auto preencher</button>
         <button className={style.buttonRegistrar} onClick={addPokemon}>Registrar Pokémon</button>
       </div>
       {existe && (
@@ -115,6 +117,7 @@ const ExibirPokemon = ( {dataApi, error} ) => {
   if (error) return <p className={style.mensagemErro}> Pokémon não encontrado... </p>
   if (!dataApi) return <p className={style.mensagem}> Nenhum Pokémon pesquisado... </p>
 
+  const id = dataApi.id;
   const nome =  dataApi.name.toUpperCase();
   const tipoPrincipal = dataApi.types[0].type.name;
   const tipoSecundario = dataApi.types[1]?.type.name;
@@ -124,6 +127,8 @@ const ExibirPokemon = ( {dataApi, error} ) => {
     <section className={style.containerExibirPokemon}>
 
       <div className={style.divInfos}>
+        <h3>ID</h3>
+        <p className={style.id}>#{id}</p>
         <h3>NOME</h3>
         <p className={style.nome}>{nome}</p>
         <h3>TIPO</h3>
