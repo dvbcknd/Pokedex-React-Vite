@@ -88,7 +88,7 @@ const Captura = ( {setIdBusca, addPokemon, existe, add} ) => {
   const [idDigitado, setIdDigitado] = useState(''); // O que o suário digita
 
   const limparInput = () => {
-    setTimeout( () =>  setIdDigitado(''), 3000 );
+    setIdDigitado('');
   }
    
   return (
