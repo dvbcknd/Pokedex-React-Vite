@@ -1,19 +1,21 @@
 
-import React, { useState, useEffect, use } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useFetch } from '../../hooks/useFetch';
 import style from './GetApiPokemon.module.scss'
 import Colecao from '../colecao/Colecao';
 import tipoCores from '../../utils/tipoCores'
 
 
 function GetApiPokemon( {colecao, setColecao} ) {
-
   const [idBusca, setIdBusca] = useState(null); // O ID que dispara a busca
-  const [dataApi, setDataApi] = useState(null);
-  const [error, setError] = useState(null);
+  //Usa o hooke personalizado, se tiver id, envia para o hook a URL, se não, envia NULL
+  const {data: pokemons, loading, error} = useFetch(
+    idBusca ? `https://pokeapi.co/api/v2/pokemon/${idBusca}` : null
+  );
   const [jaExiste, setJaExiste] = useState(false);
   const [add, setAdd] = useState(false);
 
-
+  //Salva os dados no Local Storage
   useEffect(() => {
     localStorage.setItem('colecao', JSON.stringify(colecao))
   }, [colecao])
@@ -23,59 +25,35 @@ function GetApiPokemon( {colecao, setColecao} ) {
     setColecao(colecao.filter( p => p.id !== id ));
   }
 
-
   const addPokemon = () =>{
-    if (!dataApi) return;
+    if (!pokemons) return; //Impede tentar adicionar quando não foi feito a pesquisa.
 
     const pokemon = {
-      id: dataApi.id,
-      nome: dataApi.name.toUpperCase(),
-      tipoPrincipal: dataApi.types[0].type.name,
-      tipoSecundario: dataApi.types[1]?.type.name || null,
-      img: dataApi.sprites.other['official-artwork'].front_default,
+      id: pokemons.id,
+      nome: pokemons.name.toUpperCase(),
+      tipoPrincipal: pokemons.types[0].type.name,
+      tipoSecundario: pokemons.types[1]?.type.name || null,
+      img: pokemons.sprites.other['official-artwork'].front_default,
     } 
 
-    if (colecao.some( (pokemon) => pokemon.id === dataApi.id )){
+    //Se o Pokémon já existe exibe mensagem.
+    if (colecao.some( (pokemon) => pokemon.id === pokemons.id )){
       setJaExiste(true);
       setTimeout( () => setJaExiste(false), 2000)
       return
     }else {
+      //Adiciona o Pokémon e exibe mensagem.
       setColecao([...colecao, pokemon])
       setAdd(true);
       setTimeout( () => setAdd(false), 2000)
     }
   }
 
-
-  useEffect(() => {
-    if (!idBusca) return
-    async function getApi() {
-      try {
-        setError(null);
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${idBusca}`);
-                      
-        if (!response.ok) {
-            throw new Error("Pokémon não encontrado.");
-        }
-        
-        const data = await response.json();
-        setDataApi(data);
-      } catch (err) {
-          setError(err.message);
-          setDataApi(null);
-      } finally {
-        console.log("A requisição terminou.");
-      }
-    }
-
-    getApi()
-  }, [idBusca])
-
   return (
     <div className={style.conteinerPrincipal}>
       <section className={style.containerCaptura}>
         <Captura setIdBusca={setIdBusca} addPokemon={addPokemon} existe={jaExiste} add={add}/>
-        <ExibirPokemon dataApi={dataApi} error={error} />
+        <ExibirPokemon pokemons={pokemons} error={error} loading={loading} />
       </section>
       <Colecao colecao={colecao} delPokemon={deletePokemon} />
     </div>
@@ -113,15 +91,17 @@ const Captura = ( {setIdBusca, addPokemon, existe, add} ) => {
 }
 
 
-const ExibirPokemon = ( {dataApi, error} ) => {
-  if (error) return <p className={style.mensagemErro}> Pokémon não encontrado... </p>
-  if (!dataApi) return <p className={style.mensagem}> Nenhum Pokémon pesquisado... </p>
+const ExibirPokemon = ( {pokemons, error, loading} ) => {
 
-  const id = dataApi.id;
-  const nome =  dataApi.name.toUpperCase();
-  const tipoPrincipal = dataApi.types[0].type.name;
-  const tipoSecundario = dataApi.types[1]?.type.name;
-  const img = dataApi.sprites.other['official-artwork'].front_default;
+  if (error) return <p className={style.mensagemErro}> Pokémon não encontrado... </p>
+  if (!pokemons) return <p className={style.mensagem}> Nenhum Pokémon pesquisado... </p>
+  if (loading) return <p className={style.mensagemCarregando}> Carregando dados do Pokémon... </p> 
+
+  const id = pokemons.id;
+  const nome =  pokemons.name.toUpperCase();
+  const tipoPrincipal = pokemons.types[0].type.name;
+  const tipoSecundario = pokemons.types[1]?.type.name;
+  const img = pokemons.sprites.other['official-artwork'].front_default;
 
   return(
     <section className={style.containerExibirPokemon}>
@@ -148,7 +128,6 @@ const ExibirPokemon = ( {dataApi, error} ) => {
     </section>
   )
 }
-
 
 
 export default GetApiPokemon

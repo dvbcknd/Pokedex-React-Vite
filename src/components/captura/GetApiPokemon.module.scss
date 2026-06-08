@@ -4,13 +4,13 @@
  @use '../sass/variaveis' as v;
 
 
-.mensagem, .mensagemErro{
+.mensagem, .mensagemErro, .mensagemCarregando{
     font-size: 2em;
     text-align: center;
 
 }
 
-.mensagem{
+.mensagem, .mensagemCarregando{
     color: v.$color-text-primary;
 }
 
