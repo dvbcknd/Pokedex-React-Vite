@@ -1,39 +1,46 @@
+  import { useState, useEffect } from 'react';
 
-import { useState, useEffect } from 'react';
-
-export function useFetch(url){
+  export function useFetch(url){
     const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect( () => {
-        const fetchData = async () => {
+      if (!url) {
+        setLoading(false);
+        return;
+      }
 
-            setLoading(true); //Ativa o Loading quando começa a busca
-            setError(null); // Reseta erros anteriores
+      let ignore = false; // flag: ignora resultado se o effect já foi limpo
 
-            try{
-                const response = await fetch(url);
-                if (!response.ok){
-                    throw new Error("Erro ao buscar a API");
-                }
+      //Função que busca a API
+      const fetchData = async () => {
+        setLoading(true); //Ativa o Loading quando começa a busca
+        setError(null); // Reseta erros anteriores
 
-                const json = await response.json();
-                setData(json); //Guarda os dados.
-            }catch (err){
-                setError(err.message); //Guarda o erro, caso aconteça.
-                setData(null);
-            }finally{
-                setLoading(false);
-            }
-        };
+        try{
+          const response = await fetch(url);
+          const json = await response.json();
 
-        if(!url){
-            return;
-        }else{
-            fetchData(); //Se tiver URL ele chama a função
+          if (!ignore) setData(json);
+        }catch (err){
+          if (!ignore) {
+            setError(err.message);
+            setData(null);
+          }
+        }finally{
+          if (!ignore) setLoading(false);
         }
-    }, [url]); //UseEffect roda toda vez que a variável muda.
+      };
+      
+      fetchData();
 
-    return { data, loading, error };
-}
+      // Cleanup: roda quando a url muda ou o componente desmonta.
+      return () => {
+        ignore = true;
+      };
+    }, [url]); //UseEffect roda toda vez que a variável url muda.
+
+    //Retorna os estados em forma de objetos, dessa maneira é possível pegar o qual variável quiser.
+    return { data, loading, error }; 
+  }
